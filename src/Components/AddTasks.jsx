@@ -3,8 +3,6 @@ import deteleButton from "../images/delete-button.svg"
 
 export default function AddTasks(text){
 
-    const [showComponent, setShowComponent] = React.useState(true);
-
     return(
     <div className="pending-tasks">
         <button className="checkmark"></button>
