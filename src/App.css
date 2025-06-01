@@ -1,0 +1,323 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 1000px; 
+}
+
+.header {
+    display: flex;
+    margin-top: 0;
+    text-align: left;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, #000000 0%, #828187 92.4%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: Inter;
+    color: white;
+    display: inline-block;
+}
+.name {
+    font-size: 13px;
+    font-family: Inter;
+    display: inline-block;
+    margin-top: 30px;
+    color: #C2C2C2;
+}
+
+.add {
+    margin-top: 0px;
+    background: rgb(29, 157, 29);
+    border: 1px solid #000000;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-shadow: 0px 0px 4px rgb(0,0,0);
+    border-radius: 5px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 30px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.4s, opacity 0.4s;
+}
+
+.add:hover {
+    background-color: rgb(15, 117, 15);
+}
+
+.Adding-Tasks {
+    max-width: 50%;
+    margin-bottom: 0;
+    margin-top: 80px;  
+    padding-left: 16px;
+    width: 100%;
+}
+
+.adding {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    height: 30px;
+    text-indent: 10px;
+    border:none;
+    box-shadow: 2px 2px 5px rgb(131, 129, 129);
+    outline: none;
+}
+
+.button {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom:40px;
+    cursor: pointer;
+}
+
+.task-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.input-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center ;
+    margin-bottom: 30px;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+
+.task-list {
+    flex-shrink: 0;
+    align-items: center;
+    height:500px;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    position: static;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
+}
+
+.rectangle-header{
+    display: flex;
+    border-radius: 10px 10px 0 0;
+    display: block;
+    width: 100%;
+    flex: 10;
+    justify-content: top;
+    border-width: 2px;
+    border-color: #000000;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-style: solid;
+    height:45px;
+    background: linear-gradient(90deg, #000000 0%, #828187 92.4%);
+}
+
+
+.task-header {
+    font-family: nokora;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 25px;
+    color: white;
+}
+
+.filters{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.all {
+/* Rectangle 16 */
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 160px;
+    padding: 10;
+    height: 40px;
+    font-size: 20px;
+
+    background: none;
+    border: 2px solid #000000;
+    border-radius: 30px;
+
+}
+
+.all:hover {
+    background-color: rgb(206,206,206);
+}
+
+.pending {
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 160px;
+    padding: 10;
+    height: 40px;
+    font-size: 20px;
+
+    background: rgb(244, 162, 97);
+    border: 2px solid #000000;
+    border-radius: 30px;
+}
+
+.pending:hover {
+    background: rgb(211, 141, 83);
+}
+
+.completed {
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 160px;
+    padding: 10;
+    height: 40px;
+    font-size: 20px;
+
+    background: rgb(46, 204, 113);
+    border: 2px solid #000000;
+    border-radius: 30px;
+}
+
+.completed:hover {
+    background: rgb(41, 186, 101);
+}
+
+.pending-tasks {
+    /* Rectangle 8 */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 75px;
+    width: 550px;
+    background: none;
+    border: 3px solid #F4A261;
+    border-radius: 20px;
+}
+
+.checkmark {
+    margin-left: 20px;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.checkmark:hover {
+    background-color: rgb(206,206,206);
+}
+
+.pending-text {
+    margin-right: 0;
+    margin-left: 10px;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    
+}
+
+.completed-tasks {
+        /* Rectangle 8 */
+        box-sizing: border-box;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        height: 75px;
+        width: 550px;
+        background: none;
+        border: 3px solid #2ECC71;
+        border-radius: 20px;
+}
+
+.text {
+    margin-left: 10px;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    text-decoration:line-through;
+}
+
+.check-icon {
+    border: none;
+    background-color: #F8F9FA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.edit, .delete-pending, .delete-completed, .cancel, .save{
+    display: flex;
+    border: none;
+    background: none;
+    justify-content: right;
+    align-items: center;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.cancel {
+    width: 42;
+    height: 37;
+}
+
+.delete-pending:hover, .delete-completed:hover, .cancel:hover{
+    filter: invert(16%) sepia(61%) saturate(5733%) hue-rotate(355deg) brightness(93%) contrast(84%);
+}
+
+.edit:hover, .save:hover{
+    filter: invert(87%) sepia(66%) saturate(519%) hue-rotate(350deg) brightness(94%) contrast(96%);
+}
+
+.function-buttons {
+    display: flex;
+    align-items: right;
+    justify-content: end;
+    height: 100px;
+    margin-right: 20px;
+    flex: 1;
+}
+
+
+.task-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pending-task-container {
+    display: flex;
+}
+
+
+.active {
+    display: flex;
+}
+
+.inactive {
+    display: none;
+}
