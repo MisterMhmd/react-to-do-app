@@ -149,7 +149,6 @@ body {
 }
 
 .all {
-/* Rectangle 16 */
     cursor: pointer;
     box-sizing: border-box;
     width: 160px;
@@ -161,6 +160,19 @@ body {
     border: 2px solid #000000;
     border-radius: 30px;
 
+}
+
+.allactive {
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 160px;
+    padding: 10;
+    height: 40px;
+    font-size: 20px;
+
+    background: none;
+    border: 2px solid #000000;
+    border-radius: 30px;
 }
 
 .all:hover {
@@ -180,6 +192,19 @@ body {
     border-radius: 30px;
 }
 
+.pendingactive {
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 160px;
+    padding: 10;
+    height: 40px;
+    font-size: 20px;
+
+    background: rgb(244, 162, 97);
+    border: 2px solid #000000;
+    border-radius: 30px; 
+}
+
 .pending:hover {
     background: rgb(211, 141, 83);
 }
@@ -195,6 +220,19 @@ body {
     background: rgb(46, 204, 113);
     border: 2px solid #000000;
     border-radius: 30px;
+}
+
+.completedactive {
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 160px;
+    padding: 10;
+    height: 40px;
+    font-size: 20px;
+
+    background: rgb(46, 204, 113);
+    border: 2px solid #000000;
+    border-radius: 30px;    
 }
 
 .completed:hover {
