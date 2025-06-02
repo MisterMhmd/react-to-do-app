@@ -9,9 +9,9 @@ export default function Main(){
     function HandlePendingTask(formData) {
         const newTask = formData.get("Task");
         if (newTask == "") {
-            console.log("String empty!")
+            console.log("String empty!");
         } else {
-            setPendingTasks(prevTasks => [...prevTasks, newTask])
+            setPendingTasks(prevTasks => [...prevTasks, newTask]);
         }
     }
 
@@ -37,22 +37,22 @@ export default function Main(){
             return {
                 pendingTasks: pendingTasks,
                 completedTasks: []
-            }
+            };
         } else if (filter === "completed") {
             return {
                 pendingTasks: [],
                 completedTasks: completedTasks
-            }
+            };
         } else  if (filter === "all") {
             return {
                 pendingTasks: pendingTasks,
                 completedTasks: completedTasks
-            }
+            };
         }
     }
 
 
-    const filteredTasks = getFilteredTasks()
+    const filteredTasks = getFilteredTasks();
 
 
     return (
