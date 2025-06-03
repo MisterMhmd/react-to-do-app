@@ -308,7 +308,7 @@ body {
     margin-left: 20px;
 }
 
-.edit, .delete-pending, .delete-completed, .cancel, .save{
+.edit, .delete, .cancel, .save{
     display: flex;
     border: none;
     background: none;
@@ -323,7 +323,7 @@ body {
     height: 37;
 }
 
-.delete-pending:hover, .delete-completed:hover, .cancel:hover{
+.delete:hover, .cancel:hover{
     filter: invert(16%) sepia(61%) saturate(5733%) hue-rotate(355deg) brightness(93%) contrast(84%);
 }
 

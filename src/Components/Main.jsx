@@ -23,19 +23,19 @@ export default function Main(){
         }
     }
 
-    function HandleCompleteTask(id) {
-            const taskToComplete = pendingTasks.find(task => task.id === id);
-            if(taskToComplete) {
-                setPendingTasks(prevTasks => prevTasks.filter(task => task.id !== id));
-                setCompletedTasks(prevTasks => [...prevTasks, taskToComplete]);
-            }
-    }
-
     function HandleDeleteTask(id, isCompleted = false) {
         if (isCompleted) {
             setCompletedTasks(prevTasks => prevTasks.filter(task => task.id !== id));
         } else {
             setPendingTasks(prevTasks => prevTasks.filter(currentTask => currentTask.id !== id));
+        }
+    }
+
+    function HandleCompleteTask(id) {
+        const taskToComplete = pendingTasks.find(task => task.id === id);
+        if(taskToComplete) {
+            setPendingTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+            setCompletedTasks(prevTasks => [...prevTasks, taskToComplete]);
         }
     }
 

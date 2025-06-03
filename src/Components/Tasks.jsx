@@ -1,32 +1,29 @@
-import editButton from "../images/edit-button.svg"
-import deteleButton from "../images/delete-button.svg"
-import checkmarkIcon from "../images/checkmark.svg"
+import CheckMarkButton from "./Buttons/CheckMarkButton";
+import EditButton from "./Buttons/EditButton";
+import DeleteButton from "./Buttons/DeleteButton";
 
 export default function AddTasks({text, id, isCompleted, onComplete, onDelete}){
-    
+
+    function handleDeleteClick() {
+        if(onDelete){
+            onDelete(id, isCompleted);
+        }
+    }
+
+
     function handleCheckmarkClick() {
         if (!isCompleted && onComplete) {
             onComplete(id);
         }
     }
 
-    function handleDeleteClick() {
-        if (onDelete) {
-            onDelete(id, isCompleted);
-        }
-    }
-
     if (isCompleted) {
         return(
             <div className="completed-tasks">
-                <button className="check-icon" aria-label="checked">
-                    <img src={checkmarkIcon} />
-                </button>
+                <CheckMarkButton />
                 <p className="text">{text}</p>
                 <div className="function-buttons">
-                    <button className="delete-completed" aria-label="delete" onClick={handleDeleteClick}>
-                        <img src={deteleButton}/>
-                    </button>
+                    <DeleteButton onDelete={handleDeleteClick} id={id} isCompleted={isCompleted}/>
                 </div>
             </div>
         )
@@ -37,12 +34,8 @@ export default function AddTasks({text, id, isCompleted, onComplete, onDelete}){
             <button className="checkmark" onClick={handleCheckmarkClick}></button>
             <p className="pending-text">{text}</p>
             <div className="function-buttons">
-                <button className="edit" aria-label="edit">
-                    <img src={editButton} />
-                </button>
-                <button className="delete-pending" aria-label="delete" onClick={handleDeleteClick}>
-                    <img src={deteleButton}/>
-                </button>
+                <EditButton />
+                <DeleteButton onDelete={handleDeleteClick} id={id} isCompleted={isCompleted}/>
             </div>
         </div>
     )
