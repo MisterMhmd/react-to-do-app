@@ -8,38 +8,38 @@ export default function Main(){
     const [completedTasks, setCompletedTasks] = React.useState([]);
     const [filter, setFilter] = React.useState('all');
 
-    function HandlePendingTask(event) {
+    function handlePendingTask(event) {
         event.preventDefault();
         const formData = new FormData(event.currentTarget)
-        const newTask = formData.get("Task");
-        if (newTask === "") {
-            console.log("String empty!");
+        const taskText = formData.get("Task");
+        if (taskText === "") {
+            alert("String empty!")
         } else {
-            const task = {
+            const newTask = {
                 id: uuid(),
-                taskName: newTask
+                taskName: taskText
             }
-            setPendingTasks(prevTasks => [...prevTasks, task]);
+            setPendingTasks(prevTasks => [...prevTasks, newTask]);
         }
     }
 
-    function HandleDeleteTask(id, isCompleted = false) {
+    function handleDeletedTask(id, isCompleted = false) {
         if (isCompleted) {
-            setCompletedTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+            setCompletedTasks(prevTasks => prevTasks.filter(currentTask => currentTask.id !== id));
         } else {
             setPendingTasks(prevTasks => prevTasks.filter(currentTask => currentTask.id !== id));
         }
     }
 
-    function HandleCompleteTask(id) {
-        const taskToComplete = pendingTasks.find(task => task.id === id);
-        if(taskToComplete) {
-            setPendingTasks(prevTasks => prevTasks.filter(task => task.id !== id));
-            setCompletedTasks(prevTasks => [...prevTasks, taskToComplete]);
+    function handleCompletedTask(id) {
+        const completedTask = pendingTasks.find(currentTask => currentTask.id === id);
+        if(completedTask) {
+            setPendingTasks(prevTasks => prevTasks.filter(currentTask => currentTask.id !== id));
+            setCompletedTasks(prevTasks => [...prevTasks, completedTask]);
         }
     }
 
-    function HandleFilterChange(filter){
+    function handleFilterChange(filter){
         setFilter(filter);
     }
 
@@ -68,7 +68,7 @@ export default function Main(){
 
     return (
         <>
-            <form id="form" className="input-container" onSubmit={HandlePendingTask}>
+            <form id="form" className="input-container" onSubmit={handlePendingTask}>
                 <div className="Adding-Tasks">
                     <input className="adding" placeholder="Attend Meetings" id="task" name="Task"/>
                 </div>
@@ -82,29 +82,29 @@ export default function Main(){
                         <p className="task-header"> Tasks </p>
                     </div>
                     <div className="filters">
-                        <button className={"all" + (filter === "all" ? "active" : "")} onClick={() => HandleFilterChange("all")}> All </button>
-                        <button className={"pending" + (filter === "pending" ? "active" : "")} onClick={() => HandleFilterChange("pending")} > Pending </button>
-                        <button className={"completed" + (filter === "completed" ? "active" : "")} onClick={() => HandleFilterChange("completed")}> Completed </button>
+                        <button className={"all" + (filter === "all" ? "active" : "")} onClick={() => handleFilterChange("all")}> All </button>
+                        <button className={"pending" + (filter === "pending" ? "active" : "")} onClick={() => handleFilterChange("pending")} > Pending </button>
+                        <button className={"completed" + (filter === "completed" ? "active" : "")} onClick={() => handleFilterChange("completed")}> Completed </button>
                     </div>
                     <div className="task-input">
-                        {filteredTasks.pendingTasks.map((taskName, index) => (
+                        {filteredTasks.pendingTasks.map((task, index) => (
                             <Tasks
                                 key={index}
-                                id= {taskName.id} 
-                                text={taskName.taskName}
+                                id= {task.id} 
+                                text={task.taskName}
                                 isCompleted={false}
-                                onComplete={HandleCompleteTask}
-                                onDelete={HandleDeleteTask}
+                                onComplete={handleCompletedTask}
+                                onDelete={handleDeletedTask}
                             />
                         ))}
-                        {filteredTasks.completedTasks.map((taskName) => (
+                        {filteredTasks.completedTasks.map((task) => (
                             <Tasks 
-                                key={taskName.id} 
-                                id= {taskName.id}
-                                text={taskName.taskName}
+                                key={task.id} 
+                                id= {task.id}
+                                text={task.taskName}
                                 isCompleted={true}
-                                onComplete={HandleCompleteTask}
-                                onDelete={HandleDeleteTask}
+                                onComplete={handleCompletedTask}
+                                onDelete={handleDeletedTask}
                             />
                         ))}
                     </div>

@@ -2,16 +2,16 @@ import CheckMarkButton from "./Buttons/CheckMarkButton";
 import EditButton from "./Buttons/EditButton";
 import DeleteButton from "./Buttons/DeleteButton";
 
-export default function AddTasks({text, id, isCompleted, onComplete, onDelete}){
+export default function Tasks({text, id, isCompleted, onComplete, onDelete}){
 
-    function handleDeleteClick() {
+    function deleteTask() {
         if(onDelete){
             onDelete(id, isCompleted);
         }
     }
 
 
-    function handleCheckmarkClick() {
+    function completeTask() {
         if (!isCompleted && onComplete) {
             onComplete(id);
         }
@@ -23,7 +23,7 @@ export default function AddTasks({text, id, isCompleted, onComplete, onDelete}){
                 <CheckMarkButton />
                 <p className="text">{text}</p>
                 <div className="function-buttons">
-                    <DeleteButton onDelete={handleDeleteClick} id={id} isCompleted={isCompleted}/>
+                    <DeleteButton onDelete={deleteTask} id={id} isCompleted={isCompleted}/>
                 </div>
             </div>
         )
@@ -31,11 +31,11 @@ export default function AddTasks({text, id, isCompleted, onComplete, onDelete}){
 
     return(
         <div className="pending-tasks">
-            <button className="checkmark" onClick={handleCheckmarkClick}></button>
+            <button className="checkmark" onClick={completeTask}></button>
             <p className="pending-text">{text}</p>
             <div className="function-buttons">
                 <EditButton />
-                <DeleteButton onDelete={handleDeleteClick} id={id} isCompleted={isCompleted}/>
+                <DeleteButton onDelete={deleteTask} id={id} isCompleted={isCompleted}/>
             </div>
         </div>
     )
