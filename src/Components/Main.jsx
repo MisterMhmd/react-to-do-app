@@ -7,6 +7,8 @@ export default function Main(){
     const [pendingTasks, setPendingTasks] = React.useState([]);
     const [completedTasks, setCompletedTasks] = React.useState([]);
     const [filter, setFilter] = React.useState('all');
+    const [editingTaskId, setEditingTaskId] = React.useState(null);
+    const [editedText, setEditedText] = React.useState("");
 
     function handlePendingTask(event) {
         event.preventDefault();
@@ -24,6 +26,13 @@ export default function Main(){
     }
 
     function handleDeletedTask(id, isCompleted = false) {
+
+        if (editingTaskId === id) {
+            setEditingTaskId(null);
+            setEditedText("");
+        }
+
+
         if (isCompleted) {
             setCompletedTasks(prevTasks => prevTasks.filter(currentTask => currentTask.id !== id));
         } else {
@@ -32,6 +41,12 @@ export default function Main(){
     }
 
     function handleCompletedTask(id) {
+
+        if (editingTaskId === id) {
+            setEditingTaskId(null);
+            setEditedText("");
+        }
+
         const completedTask = pendingTasks.find(currentTask => currentTask.id === id);
         if(completedTask) {
             setPendingTasks(prevTasks => prevTasks.filter(currentTask => currentTask.id !== id));
@@ -40,6 +55,12 @@ export default function Main(){
     }
 
     function handleFilterChange(filter){
+
+        if (editingTaskId) {
+            setEditingTaskId(null);
+            setEditedText("");
+        }
+
         setFilter(filter);
     }
 
@@ -60,6 +81,32 @@ export default function Main(){
                 completedTasks: completedTasks
             };
         }
+    }
+
+    function startEdit(id, currentText) {
+        setEditingTaskId(id);
+        setEditedText(currentText);
+    }
+
+    function saveEdit() {
+        if (editedText.trim() !== "") {
+            setPendingTasks(prevTasks => 
+                prevTasks.map(currentTask => 
+                    currentTask.id === editingTaskId 
+                        ? { ...currentTask, taskName: editedText.trim() } 
+                        : currentTask
+                )
+            );
+        }
+        setEditingTaskId(null);
+        setEditedText("");
+    }
+
+
+
+    function cancelEdit() {
+        setEditingTaskId(null);
+        setEditedText("");
     }
 
 
@@ -95,6 +142,12 @@ export default function Main(){
                                 isCompleted={false}
                                 onComplete={handleCompletedTask}
                                 onDelete={handleDeletedTask}
+                                onStartEdit={startEdit}
+                                onSaveEdit={saveEdit}
+                                onCancelEdit={cancelEdit}
+                                onEditTextChange={setEditedText}
+                                isEditing={editingTaskId === task.id}
+                                editedText={editedText}
                             />
                         ))}
                         {filteredTasks.completedTasks.map((task) => (
@@ -105,6 +158,12 @@ export default function Main(){
                                 isCompleted={true}
                                 onComplete={handleCompletedTask}
                                 onDelete={handleDeletedTask}
+                                onStartEdit={startEdit}
+                                onSaveEdit={saveEdit}
+                                onCancelEdit={cancelEdit}
+                                onEditTextChange={setEditedText}
+                                isEditing={editingTaskId === task.id}
+                                editedText={editedText}
                             />
                         ))}
                     </div>
