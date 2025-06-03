@@ -1,30 +1,41 @@
 import React from 'react';
 import Tasks from './Tasks';
+import { v4 as uuid } from 'uuid';
+
 
 export default function Main(){
     const [pendingTasks, setPendingTasks] = React.useState([]);
     const [completedTasks, setCompletedTasks] = React.useState([]);
     const [filter, setFilter] = React.useState('all');
 
-    function HandlePendingTask(formData) {
+    function HandlePendingTask(event) {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget)
         const newTask = formData.get("Task");
-        if (newTask == "") {
+        if (newTask === "") {
             console.log("String empty!");
         } else {
-            setPendingTasks(prevTasks => [...prevTasks, newTask]);
+            const task = {
+                id: uuid(),
+                taskName: newTask
+            }
+            setPendingTasks(prevTasks => [...prevTasks, task]);
         }
     }
 
-    function HandleCompleteTask(taskName) {
-        setPendingTasks(prevTasks => prevTasks.filter(task => task !== taskName));
-        setCompletedTasks(prevTasks => [...prevTasks, taskName]);
+    function HandleCompleteTask(id) {
+            const taskToComplete = pendingTasks.find(task => task.id === id);
+            if(taskToComplete) {
+                setPendingTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+                setCompletedTasks(prevTasks => [...prevTasks, taskToComplete]);
+            }
     }
 
-    function HandleDeleteTask(taskName, isCompleted = false) {
+    function HandleDeleteTask(id, isCompleted = false) {
         if (isCompleted) {
-            setCompletedTasks(prevTasks => prevTasks.filter(task => task !== taskName));
+            setCompletedTasks(prevTasks => prevTasks.filter(task => task.id !== id));
         } else {
-            setPendingTasks(prevTasks => prevTasks.filter(task => task !== taskName));
+            setPendingTasks(prevTasks => prevTasks.filter(currentTask => currentTask.id !== id));
         }
     }
 
@@ -35,7 +46,7 @@ export default function Main(){
     function getFilteredTasks() {
         if (filter === "pending") {
             return {
-                pendingTasks: pendingTasks,
+                pendingTasks: pendingTasks ,
                 completedTasks: []
             };
         } else if (filter === "completed") {
@@ -57,9 +68,9 @@ export default function Main(){
 
     return (
         <>
-            <form id="form" className="input-container" action={HandlePendingTask}>
+            <form id="form" className="input-container" onSubmit={HandlePendingTask}>
                 <div className="Adding-Tasks">
-                    <input className="adding" placeholder="Attend Meetings" size="300" id="task" name="Task"/>
+                    <input className="adding" placeholder="Attend Meetings" id="task" name="Task"/>
                 </div>
                 <div className="button">
                     <input className="add" type="submit" value="Add task" />
@@ -78,17 +89,19 @@ export default function Main(){
                     <div className="task-input">
                         {filteredTasks.pendingTasks.map((taskName, index) => (
                             <Tasks
-                                key={index} 
-                                text={taskName}
+                                key={index}
+                                id= {taskName.id} 
+                                text={taskName.taskName}
                                 isCompleted={false}
                                 onComplete={HandleCompleteTask}
                                 onDelete={HandleDeleteTask}
                             />
                         ))}
-                        {filteredTasks.completedTasks.map((taskName, index) => (
+                        {filteredTasks.completedTasks.map((taskName) => (
                             <Tasks 
-                                key={index} 
-                                text={taskName}
+                                key={taskName.id} 
+                                id= {taskName.id}
+                                text={taskName.taskName}
                                 isCompleted={true}
                                 onComplete={HandleCompleteTask}
                                 onDelete={HandleDeleteTask}

@@ -2,17 +2,17 @@ import editButton from "../images/edit-button.svg"
 import deteleButton from "../images/delete-button.svg"
 import checkmarkIcon from "../images/checkmark.svg"
 
-export default function AddTasks({text, isCompleted, onComplete, onDelete}){
+export default function AddTasks({text, id, isCompleted, onComplete, onDelete}){
     
     function handleCheckmarkClick() {
         if (!isCompleted && onComplete) {
-            onComplete(text);
+            onComplete(id);
         }
     }
 
     function handleDeleteClick() {
         if (onDelete) {
-            onDelete(text, isCompleted);
+            onDelete(id, isCompleted);
         }
     }
 
