@@ -4,11 +4,35 @@ import { v4 as uuid } from 'uuid';
 
 
 export default function Main(){
-    const [pendingTasks, setPendingTasks] = React.useState([]);
-    const [completedTasks, setCompletedTasks] = React.useState([]);
+
+    const [pendingTasks, setPendingTasks] = React.useState(() => {
+        const saved = localStorage.getItem('pendingTasks');
+        if (saved) {
+            return JSON.parse(saved)
+        } else {
+            return []
+        }
+    });
+
+    const [completedTasks, setCompletedTasks] = React.useState(() => {
+        const saved = localStorage.getItem('completedTasks');
+        if (saved) {
+            return JSON.parse(saved)
+        } else {
+            return []
+        }
+    });
+    
     const [filter, setFilter] = React.useState('all');
     const [editingTaskId, setEditingTaskId] = React.useState(null);
     const [editedText, setEditedText] = React.useState("");
+
+
+    React.useEffect(() => {
+        localStorage.setItem('pendingTasks', JSON.stringify(pendingTasks));
+        localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+    }, [pendingTasks, completedTasks]);
+
 
     function handlePendingTask(event) {
         event.preventDefault();
@@ -23,6 +47,9 @@ export default function Main(){
             }
             setPendingTasks(prevTasks => [...prevTasks, newTask]);
         }
+        
+        event.currentTarget.reset();
+        handleFilterChange("all");
     }
 
     function handleDeletedTask(id, isCompleted = false) {
@@ -52,6 +79,8 @@ export default function Main(){
             setPendingTasks(prevTasks => prevTasks.filter(currentTask => currentTask.id !== id));
             setCompletedTasks(prevTasks => [...prevTasks, completedTask]);
         }
+
+        handleFilterChange("all")
     }
 
     function handleFilterChange(filter){
